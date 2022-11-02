@@ -16,9 +16,12 @@ function App() {
           .get(`http://localhost:3000/api/me`, {
             withCredentials: true,
           })
-          .then((res) => res.data);
-
-      setUser(usr);
+          .then((res) => {
+              return res.data;
+          }).catch(function(error) {
+              console.log('Error ', error)
+          });
+        setUser(usr);
     })();
   }, []);
 
@@ -31,7 +34,7 @@ function App() {
               LOGIN WITH GITHUB
             </a>
         ) : (
-            <h1>Welcome {user.login}</h1>
+            <h1>Welcome {user.data.login}</h1>
         )}
       </div>
   );
